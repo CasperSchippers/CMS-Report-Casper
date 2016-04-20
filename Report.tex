@@ -1,0 +1,165 @@
+\documentclass[titlepage]{report}
+\usepackage[]{multipack}
+
+\title{Title}
+\author{Schippers, C.F.}
+\date{\today}
+
+\begin{document}
+\setAbstract{}
+\inserttitletoc
+
+\listoftodos
+\newpage
+
+\chapter{Theoretical exercises}
+\section{Exercise 1}
+\todo{opgaven maken}
+
+\section{Exercise 2}
+\subsection{a}
+\begin{equation}
+	U = 4 \varepsilon \left[ \left(\frac{\sigma}{r}\right)^{12} - \left(\frac{\sigma}{r}\right)^6\right].
+\end{equation}
+
+Take the derivative to $ r $ and put to zero for $ r = r\sub{min} $
+\begin{equation}
+	\left. \pd{U}{r} \right|_{r=r\sub{min}} = 4 \varepsilon \left[ -12 \frac{\sigma^{12}}{r\sub{min}^{13}} + 6\frac{\sigma^{6}}{r\sub{min}^{7}} \right] = 0.
+\end{equation}
+
+This solves to
+\begin{equation}
+	r\sub{min} = \sqrt[6]{2} \sigma.
+\end{equation}
+
+Putting this in $ U $ gives
+\begin{equation}
+	U\left(r = r\sub{min}\right) = - \varepsilon.
+\end{equation}
+
+\subsection{b}
+$ D_e $ is the depth of the potential well. 
+A Taylor-expansion of the potential around $ l = l_0 $ gives
+\begin{subequations}
+	\begin{align}
+		v(l) =& D_e \left[ 1 - \exp\left(-a (l-l_0)\right) \right]^2 \\
+		\approx& a^2 D_e (l-l_0)^2 + \mathcal{O}\left((l-l_0)^3\right).
+	\end{align}
+\end{subequations}
+So at small deviations from $ l_0 $ the Morse potential is approximately equal to a harmonic potential $ v(l) = k/2 (l-l_0)^2 $ with $ k = 2 a^2 D_e $.
+At distances away from the equilibrium the Morse potential deviates from the harmonic potential as the Morse potential approaches the potential depth $ D_e $ asymptotically.
+\begin{figure}
+	\centering
+	\input{Figures/THEX2b.tex}
+	\caption{}
+	\label{fig:THEX2b}
+\end{figure}
+\missingfigure{Figuur van morse potential, taylor series en harmonic unit erop zetten}
+
+\section{Exercise 3}
+The characteristic frequency $ \omega $ of a harmonic spring with two masses is given by \cite{Taylor ofzo}
+\begin{equation}
+	\omega = \sqrt{\frac{k}{\mu}} 
+\end{equation}
+with $ k $ the spring constant and $ \mu = \left(\frac{1}{m_1} + \frac{1}{m_2}\right) $ the reduced mass. $ 1\unit{N/m} = 1.4393 \unit{kcal \, mol^{-1} \textrm{\AA}^{-2}} $
+
+
+\todo{frequencies door rekenen en gebruiken omega = c*golfgetal}
+
+\section{Exercise 4}
+In a $ N $ dimensions the amount of periodic images is given by $ 3^N - 1 $. \todo{beetje uitleg geven}
+
+
+\chapter{Molecular Dynamics of a Simple Liquid}
+\todo[inline]{choose 1 of the master exercises}
+
+\section{Exercise 1}
+\todo[inline]{maken, mass: special == 1 -> mass = 1, special != 1 --> distribution 1}
+
+\section{Exercise 2}
+\subsection{a}
+\todo[inline]{1.2 is voorbij cut-off, no repulsion when r>rmin}
+
+\subsection{b}
+\todo[inline]{maken}
+
+\section{Exercise 3}
+\subsection{a}
+\todo[inline]{slides}
+
+\subsection{b}
+\todo[inline]{T = eps/kb, getallen invullen, slides, p = eps/sigma\^3}
+
+\subsection{c}
+\todo[inline]{sigma/characteristic time}
+
+\section{Exercises 4}
+\todo[inline]{sommatie van impulsen moet 0 zijn, Vcm = sum(mi vi)/sum(mi), vi = vi - Vcm, geimplementeerd in loop starting at r. 235.}
+
+\section{Exercise 5}
+\subsection{a}
+\todo[inline]{Trivial}
+
+\subsection{b}
+\todo[inline]{N*(N-1)/2}
+
+\section{Exercise 6}
+\todo[inline]{r. 348 ff}
+
+\section{Exercise 7}
+\subsection{a}
+\todo[inline]{position: use L MOD R such that 0<R<L}
+
+\subsection{b}
+\todo[inline]{26 (3\^N-1)}
+
+\subsection{c}
+\todo[inline]{interaction: use L MOD R such that -L/2<R<L/2 for each of the coordinates separately}
+
+\section{Problem 1}
+\begin{figure}
+	\centering
+	\input{Figures/MDSLP1.tex}
+	\caption{}
+	\label{fig:MDSLP1}
+\end{figure}
+
+\section{Problem 2}
+\begin{figure}
+	\centering
+	\input{Figures/MDSLP2.tex}
+	\caption{}
+	\label{fig:MDSLP2}
+\end{figure}
+
+\section{Problem 3}
+\begin{figure}
+	\centering
+	\input{Figures/MDSLP3N4.tex}
+	\caption{}
+	\label{fig:MDSLP3N4}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\input{Figures/MDSLP3N5.tex}
+	\caption{}
+	\label{fig:MDSLP3N5}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\input{Figures/MDSLP3N6.tex}
+	\caption{}
+	\label{fig:MDSLP3N6}
+\end{figure}
+
+\insertbibliography
+%\begin{appendices}
+%% appendices hier
+%
+%
+%\end{appendices}
+
+
+\end{document}
