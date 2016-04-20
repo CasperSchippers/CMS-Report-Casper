@@ -1,0 +1,2 @@
+root_file: Report.tex
+compile: lualatex
