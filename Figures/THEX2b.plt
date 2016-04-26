@@ -6,7 +6,7 @@ vLin(x) = x**2
 
 set xlabel '$a(l-l_0)$'
 set ylabel '$v/D_e$'
-set y2tics ('$D_e$' 1)
+# set y2tics ('$v=D_e$' 1)
 set y2range [0:3]
 
-plot [-2:8][0:3] vMorse(x) with lines t 'Morse potential', vLin(x) with lines t 'Linearised potential'
+plot [-2:8][0:3] vMorse(x) with lines t 'Morse potential', vLin(x) with lines t 'Taylor expanded Morse potential'

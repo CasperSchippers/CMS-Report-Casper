@@ -1,9 +1,10 @@
 \documentclass[titlepage]{report}
-\usepackage[]{multipack}
+\usepackage[BibLaTeX,noParIndent,InlineTodonotes]{multipack}
 
-\title{Title}
+\title{Computational Materials Science - Molecular Dynamics}
 \author{Schippers, C.F.}
 \date{\today}
+
 
 \begin{document}
 \setAbstract{}
@@ -12,17 +13,34 @@
 \listoftodos
 \newpage
 
+
 \chapter{Theoretical exercises}
 \section{Exercise 1}
-\todo{opgaven maken}
+A Gaussian polymer coil with $ N $ monomers with a distance $ a $ between each other has a mean square end-to-end distance $ \left\langle R^2 \right\rangle = a^2 N $ and an approximate volume $ V \sim \left\langle R^2 \right\rangle^{\frac{3}{2}} = a^3 N^{\frac{3}{2}} $ \parencite{Rubinstein2003}. The actual volume which is occupied by the monomers with volume $ v $ of the polymer is given by $ V\sub{pol} = v N $. The volume fraction $ \phi = \frac{V\sub{pol}}{V} $ is then given by
+\begin{equation}
+	\phi \sim \frac{v N}{a^3 N^{\frac{3}{2}}} = \frac{v}{a^3} N^{-\frac{1}{2}}.
+\end{equation}
+
+As two-particle interactions occur when one particles is found close to another, which has probability $ phi $, one can assume that $ \nu_2 $ scales as
+\begin{equation}
+	\nu_2 \sim N \phi \sim N^\frac{1}{2}.
+\end{equation}
+
+Analogous, three-particle interactions occur only when two particles are found close to another particle, which has probability $ \phi^2 $, one can assume that $ \nu_3 $ scales as
+\begin{equation}
+	\nu_3 \sim N \phi^2 \sim N^0.
+\end{equation}
+
+As one can see $ \nu_2 $ increases with increasing $ N $ so becomes a significant contribution for a polymer, whereas $ \nu_3 $ remains small as it does not depend on $ N $.
 
 \section{Exercise 2}
-\subsection{a}
-\begin{equation}
+\subsection{Exercise 2a}\label{subsec:THEX2a}
+The Lennard-Jones potential is given by
+\begin{equation}\label{eq:LennardJones}
 	U = 4 \varepsilon \left[ \left(\frac{\sigma}{r}\right)^{12} - \left(\frac{\sigma}{r}\right)^6\right].
 \end{equation}
 
-Take the derivative to $ r $ and put to zero for $ r = r\sub{min} $
+To find the minimum of this potential, take the derivative to $ r $ and put to zero for $ r = r\sub{min} $
 \begin{equation}
 	\left. \pd{U}{r} \right|_{r=r\sub{min}} = 4 \varepsilon \left[ -12 \frac{\sigma^{12}}{r\sub{min}^{13}} + 6\frac{\sigma^{6}}{r\sub{min}^{7}} \right] = 0.
 \end{equation}
@@ -37,9 +55,9 @@ Putting this in $ U $ gives
 	U\left(r = r\sub{min}\right) = - \varepsilon.
 \end{equation}
 
-\subsection{b}
+\subsection{Exercise 2b}
 $ D_e $ is the depth of the potential well. 
-A Taylor-expansion of the potential around $ l = l_0 $ gives
+A Taylor expansion of the potential around $ l - l_0 = 0 $ gives
 \begin{subequations}
 	\begin{align}
 		v(l) =& D_e \left[ 1 - \exp\left(-a (l-l_0)\right) \right]^2 \\
@@ -47,112 +65,234 @@ A Taylor-expansion of the potential around $ l = l_0 $ gives
 	\end{align}
 \end{subequations}
 So at small deviations from $ l_0 $ the Morse potential is approximately equal to a harmonic potential $ v(l) = k/2 (l-l_0)^2 $ with $ k = 2 a^2 D_e $.
-At distances away from the equilibrium the Morse potential deviates from the harmonic potential as the Morse potential approaches the potential depth $ D_e $ asymptotically.
-\begin{figure}
+At distances away from the equilibrium the Morse potential deviates from the harmonic potential as the Morse potential approaches the potential depth $ D_e $ asymptotically. 
+The Morse potential and the Taylor expansion around $ l - l_0 = 0 $ are shown in \cref{fig:THEX2b}.
+\begin{figure}[h!]
 	\centering
 	\input{Figures/THEX2b.tex}
-	\caption{}
+	\caption{Plot of the Morse potential and the Taylor expansion of the Morse potential around $ l-l_0 = 0 $.}
 	\label{fig:THEX2b}
 \end{figure}
-\missingfigure{Figuur van morse potential, taylor series en harmonic unit erop zetten}
 
 \section{Exercise 3}
-The characteristic frequency $ \omega $ of a harmonic spring with two masses is given by \cite{Taylor ofzo}
+The characteristic frequency $ \omega $ of a harmonic spring with two masses is given by \cite[p. 164]{Taylor05}
 \begin{equation}
-	\omega = \sqrt{\frac{k}{\mu}} 
+	\omega = \sqrt{\frac{k\sub{spring}}{\mu}} 
 \end{equation}
-with $ k $ the spring constant and $ \mu = \left(\frac{1}{m_1} + \frac{1}{m_2}\right) $ the reduced mass. $ 1\unit{N/m} = 1.4393 \unit{kcal \, mol^{-1} \textrm{\AA}^{-2}} $
-
-
-\todo{frequencies door rekenen en gebruiken omega = c*golfgetal}
+with $ k\sub{spring} $ the spring constant and $ \mu = \left(\frac{1}{m_1} + \frac{1}{m_2}\right)^{-1} $ the reduced mass. 
+From this frequency, the wave-number $ k $ can be calculated with $ \omega = c k $, where $ c = 3\E{8}\unit{m \, s^{-1}} $ is the speed of light. This results in the values found in \cref{tab:THEX3wavenumbers}.
+% Using $ 1\unit{N/m} = 1.4393 \unit{kcal \, mol^{-1} \textrm{\AA}^{-2}} $ and..
+\begin{table}[h!]
+	\centering
+	\caption{Wave-numbers in $ \unit{cm^{-1}} $ for various bonds.}
+	\label{tab:THEX3wavenumbers}
+	\begin{tabular}{lr}
+		Bond & Wave-number ($\unit{cm^{-1}}$) \\ 
+		C-C & 4955.33 \\ 
+		C=C & 7310.84 \\ 
+		C=0 & 7257.00
+	\end{tabular} 
+\end{table}
 
 \section{Exercise 4}
-In a $ N $ dimensions the amount of periodic images is given by $ 3^N - 1 $. \todo{beetje uitleg geven}
+The total amount of boxes that has to be taken into account in $ N $-dimensions scales as $ C^N $.
+For $ 1D $ systems this is known to be $ 3 $, for $ 2D $ systems this is $ 9 $ and for $ 3D $ systems this is $ 27 $, which leads to $ C=3 $.
+So in a $ N $ dimensions the amount of periodic images is given by $ 3^N - 1 $.
+
+\section{Exercise 5}
+Using $ \vec{F} = m \ddot{\vec{r}} $, the virial $ \langle G \rangle $ can be calculated as
+\begin{subequations}
+	\begin{align}
+		\langle G \rangle =& \left\langle \sum_i \vec{r}_i \cdot \vec{F}_i \right\rangle\\
+		=& m \left\langle \sum_i \vec{r}_i \cdot \ddot{\vec{r}}_i \right\rangle.
+	\end{align}
+\end{subequations}
+
+The average can be calculated using equation 2.1 from the lecture notes:
+\begin{subequations}
+	\begin{align}
+	\langle G \rangle =& \lim\limits_{t\sub{obs} \rightarrow \infty} \frac{1}{t\sub{obs}} \int_{0}^{t\sub{obs}} m \sum_i \vec{r}_i \cdot \ddot{\vec{r}}_i \d t\\
+	=& \lim\limits_{t\sub{obs} \rightarrow \infty} \frac{m}{t\sub{obs}} \left( \left. \left[\sum_i \vec{r}_i \cdot \dot{\vec{r}}_i \right] \right|_0^{t\sub{obs}} - \int_{0}^{t\sub{obs}} \sum_i \dot{\vec{r}}_i \cdot \dot{\vec{r}}_i \d t \right).
+	\end{align}
+\end{subequations}
+
+As the first term vanishes as it is divided by $ t\sub{obs} $, which goes to $ \infty $. By using equation 2.1 from the lecture notes and $ \sum_i \left\langle \dot{\vec{r}}_i^{\;2} \right\rangle = N \left\langle \dot{\vec{r}}^{\;2} \right\rangle $, the remaining part can be rewritten:
+\begin{subequations}
+	\begin{align}
+	\langle G \rangle =& - \lim\limits_{t\sub{obs} \rightarrow \infty} \frac{m}{t\sub{obs}} \int_{0}^{t\sub{obs}} \sum_i \dot{\vec{r}}_i^{\;2} \d t \\
+	=& -m \left\langle \sum_i \dot{\vec{r}}_i^{\;2} \right\rangle\\
+	=& -m N \left\langle \dot{\vec{r}}^{\;2} \right\rangle.
+	\end{align}
+\end{subequations}
+
+As according to the equipartition theorem $ 3 k\sub{B} T = m \left\langle \vec{v}^{\;2} \right\rangle = m \left\langle \dot{\vec{r}}^{\;2} \right\rangle $, the virial is given by $ \langle G \rangle = -3 n k\sub{B} T $.
+
+\todo[inline]{Exercise 5 afmaken}
+
+\section{Exercise 6}
+\subsection{Exercise 6a}
+\todo[inline]{Exercise 6a maken}
+
+\subsection{Exercise 6b}
+\todo[inline]{Exercise 6b maken}
+
+\section{Exercise 7}
+The kinetic energy $ E\sub{k} $ and it's time derivative are given by
+\begin{subequations}
+	\begin{align}
+		E\sub{k} =& \sum_{1=i}^{3N}\frac{1}{2} m_i v_i^2\\
+		\dd{E\sub{k}}{t} =& \sum_{1=i}^{3N} m_i \dot{v}_i v_i.
+	\end{align}
+\end{subequations}
+
+Using $	m_i \dot{v}_i = F_i + m_i \gamma \left(\frac{T_0}{T} -1 \right) v_i $, this can be written as
+\begin{subequations}
+	\begin{align}
+		\dd{E\sub{k}}{t} =& \sum_{1=i}^{3N} \left( v_i F_i + m_i \gamma \left(\frac{T_0}{T} -1 \right) v_i^2 \right)\\
+		=& \sum_{1=i}^{3N} v_i F_i + \gamma \left(\frac{T_0}{T} -1 \right) 2 E\sub{k}.
+	\end{align}
+\end{subequations}
+
+Now using $ E\sub{k} = \frac{3}{2}N k\sub{B} T $ one can write
+\begin{equation}
+	\dd{E\sub{k}}{t} = \sum_{1=i}^{3N} v_i F_i + 2\gamma \left(\frac{3 N}{2} k\sub{B} T_0 - E\sub{k} \right).
+\end{equation}
 
 
 \chapter{Molecular Dynamics of a Simple Liquid}
-\todo[inline]{choose 1 of the master exercises}
 
 \section{Exercise 1}
-\todo[inline]{maken, mass: special == 1 -> mass = 1, special != 1 --> distribution 1}
+The model parameters are set in de main function.
+The masses of the particles are determined by the variable \texttt{special}.
+If $ \texttt{special} = 1 $ the particles have mass 1, but if $ \texttt{special} \neq 1 $ the particles have random masses following a Gaussian distribution centred around 1.
 
 \section{Exercise 2}
-\subsection{a}
-\todo[inline]{1.2 is voorbij cut-off, no repulsion when r>rmin}
+\subsection{Exercise 2a}
+The Lennard-Jones potential decreases sharply for values smaller than $ r\sub{min} = \sqrt[6]{2}\sigma \approx 1.122 \sigma $ and therefore induces a strong repulsive force, as can be seen in \cref{fig:MDSLEX2b}.
+particles are initially spaced less then this $ r\sub{min} $, this force might cause particles to be displaced a multiple of the box size, which is unrealistic and thus leads to unrealistic behaviour.
+Therefore, a spacing of $ r = 1.2 \sigma $ is a reasonable choice.
 
-\subsection{b}
-\todo[inline]{maken}
+\subsection{Exercise 2b}
+The Lennard-Jones potential is plotted in \cref{fig:MDSLEX2b}.
+The minimum of the potential is $ U(r\sub{min}) = -\varepsilon $ with $ r\sub{min} = \sqrt[6]{2} \sigma $ as was calculated in theoretical exercise 2a (\cref{subsec:THEX2a}).
+The asymptote for $ r \rightarrow 0 $ is $ U(r \rightarrow 0) \rightarrow \infty $ and the asymptote for $ r \rightarrow \infty $ is $ U(r \rightarrow \infty) \rightarrow 0 $.
+
+\begin{figure}[h!]
+	\centering
+	\input{Figures/MDSLEX2b.tex}
+	\caption{Lennard-Jones potential.}
+	\label{fig:MDSLEX2b}
+\end{figure}
 
 \section{Exercise 3}
-\subsection{a}
-\todo[inline]{slides}
+\subsection{Exercise 3a}
+The time-scale $ \tau $ can be defined as $ \tau = \sqrt{\frac{m \sigma^2}{\varepsilon}} $ with mass $ m $ in $ \unit{kg} $, distance $ \sigma $ in $ \unit{m} $ and energy $ \varepsilon $ in $ \unit{J} = \unit{kg \, m \, s^{-2}} $.
 
-\subsection{b}
-\todo[inline]{T = eps/kb, getallen invullen, slides, p = eps/sigma\^3}
+\subsection{Exercise 3b}
+A unit of temperature $ T $ can be defined as $ T = \frac{\varepsilon}{k\sub{B}} $ with Boltzmann constant $ k\sub{B} $ in $ \unit{J \, K^{-1}} $.
+A unit of pressure $ p $ can be defined as $ p = \frac{\varepsilon}{\sigma^3} $.
 
-\subsection{c}
-\todo[inline]{sigma/characteristic time}
+\subsection{Exercise 3c}
+The unit of velocity can be defined as $ \frac{\sigma}{\tau} = \sqrt{\frac{\varepsilon}{m}} $.
 
 \section{Exercises 4}
-\todo[inline]{sommatie van impulsen moet 0 zijn, Vcm = sum(mi vi)/sum(mi), vi = vi - Vcm, geimplementeerd in loop starting at r. 235.}
+The centre of mass velocity $ v\sub{CM} $ is given by
+\begin{equation}
+	v\sub{CM} = \frac{\sum_{i = 1}^{N} m_i v_i}{ \sum_{i = 1}^{N} m_i },
+\end{equation}
+where $ v_i $ is the velocity of particle $ i $ with mass $ m_i $. 
+In order to force the system to be stationary, for each direction, $ v\sub{CM} $ is calculated for the initial system with random velocities and is subtracted from each of the individual velocities so that a new calculation of $ v\sub{CM} $ yields $ v\sub{CM} = 0 $.
+This is implemented in the code in the two for-loops starting at line 228.
 
 \section{Exercise 5}
-\subsection{a}
-\todo[inline]{Trivial}
+\subsection{Exercise 5a}
+The force $ \vec{f} $ is calculated by
+\begin{equation}
+	\vec{f} = - \nabla U = 23 \varepsilon \left[ 2 \frac{\sigma^{12}}{r^{13}} - \frac{\sigma^6}{r^7} \right].
+\end{equation}
 
-\subsection{b}
-\todo[inline]{N*(N-1)/2}
+\subsection{Exercise 5b}
+For an $ N $-particle system, each particle interacts with $ N-1 $ other particles.
+Therefore there are $ \frac{1}{2} N (N-1) $ interactions that have to be calculated.
 
 \section{Exercise 6}
-\todo[inline]{r. 348 ff}
+The Verlet algorithm is implemented in the code in the for-loop starting at line 348.
 
 \section{Exercise 7}
-\subsection{a}
-\todo[inline]{position: use L MOD R such that 0<R<L}
+\subsection{Exercise 7a}
+This can be implemented in the code by subtracting or adding $ L $ to each of the coordinates of a particle independently such that $ 0 < x < L $, $ 0 < y < L $ and $ 0 < z < L $.
+This could be done by using a modulus function or by using a floor function.
 
-\subsection{b}
-\todo[inline]{26 (3\^N-1)}
+\subsection{Exercise 7b}
+From $ 3^N -1 $, one finds that in $ 3 $-dimensions $ 26 $ mirror images are needed.
 
-\subsection{c}
-\todo[inline]{interaction: use L MOD R such that -L/2<R<L/2 for each of the coordinates separately}
+\subsection{Exercise 7c}
+For interactions, the periodic boundary conditions can be implemented by subtracting or adding $ L $ such that $ -L/2 < \delta x < L/2 $, $ -L/2 < \delta y < L/2 $ and $ -L/2 < \delta z < L/2 $ where $ \delta x $, $ delta y $ and $ \delta z $ are the $ x $, $ y $ and $ z $ components of the distance between two interacting particles. 
+This could be done by using a modulus function or by using a floor function.
 
 \section{Problem 1}
-\begin{figure}
+The trajectories and the energy plots of a system with $ N = 2 $ particles is shown in \cref{fig:MDSLP1}.
+\begin{figure}[h!]
 	\centering
 	\input{Figures/MDSLP1.tex}
-	\caption{}
+	\caption{Trajectories (left) and plot of the kinetic, potential and total energy (right) for a system with $ N = 2 $ particles.
+		\todo{replace gnuplot by python and add background grid to 3D plot}}
 	\label{fig:MDSLP1}
 \end{figure}
 
 \section{Problem 2}
-\begin{figure}
+The trajectories and energy plots of a system with $ N = 3 $ particles is shown in \cref{fig:MDSLP2}.
+\begin{figure}[h!]
 	\centering
 	\input{Figures/MDSLP2.tex}
-	\caption{}
+	\caption{Trajectories (left) and plot of the kinetic, potential and total energy (right) for a system with $ N = 3 $ particles.}
 	\label{fig:MDSLP2}
 \end{figure}
 
 \section{Problem 3}
-\begin{figure}
+The trajectories and energy plots of systems with $ N = 4 $, $ N = 5 $ and $ N = 6 $ are shown in \cref{fig:MDSLP3N4,fig:MDSLP3N5,fig:MDSLP3N6}.
+
+\begin{figure}[h!]
 	\centering
 	\input{Figures/MDSLP3N4.tex}
-	\caption{}
+	\caption{Trajectories (left) and plot of the kinetic, potential and total energy (right) for a system with $ N = 4 $ particles.}
 	\label{fig:MDSLP3N4}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h!]
 	\centering
 	\input{Figures/MDSLP3N5.tex}
-	\caption{}
+	\caption{Trajectories (left) and plot of the kinetic, potential and total energy (right) for a system with $ N = 5 $ particles.}
 	\label{fig:MDSLP3N5}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h!]
 	\centering
 	\input{Figures/MDSLP3N6.tex}
-	\caption{}
+	\caption{Trajectories (left) and plot of the kinetic, potential and total energy (right) for a system with $ N = 6 $ particles.}
 	\label{fig:MDSLP3N6}
 \end{figure}
+
+\section{Problem 4}
+\todo{Problem 4 maken}
+
+\section{Problem 5}
+\todo{Problem 5 maken}
+
+\section{Problem 6}
+\todo{Problem 6 maken}
+
+\section{Problem 7}
+\todo{Problem 7 maken}
+
+\section{Problem 8}
+\todo{Problem 8 maken}
+
+\section{Problem 9}
+\todo{Problem 9 maken}
+
+\section{Master exercise}
+\todo[inline]{choose 1 of the master exercises}
 
 \insertbibliography
 %\begin{appendices}

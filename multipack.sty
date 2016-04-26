@@ -1,5 +1,5 @@
 % !TeX root = Report.tex
-\ProvidesPackage{multipack}[2015/07/05 Casper Schippers]
+\ProvidesPackage{multipack}[2016/04/26 Casper Schippers]
 %% Set options
 \newif\ifBibLaTeX
 \newif\ifBibTeX
@@ -33,7 +33,11 @@
 \DeclareOption{MATLABCode}{\MATLABCodetrue}
 \DeclareOption{noMATLABCode}{\MATLABCodefalse}
 
-\ExecuteOptions{BibTeX,APABibStyle,DefaultFont,ParIndent,noBeamer,noMATLABCode}
+\newif\ifInlineTodonotes
+\DeclareOption{InlineTodonotes}{\InlineTodonotestrue}
+\DeclareOption{notInlineTodonotes}{\InlineTodonotesfalse}
+
+\ExecuteOptions{BibTeX,APABibStyle,DefaultFont,ParIndent,noBeamer,noMATLABCode,notInlineTodonotes}
 \ProcessOptions\relax
 
 %% Used packages
@@ -60,10 +64,12 @@
 \RequirePackage{ifxetex}
 \RequirePackage{import}
 \RequirePackage{listing}
+\RequirePackage{listings}
 \RequirePackage{longtable}
 \RequirePackage{makerobust}
 \RequirePackage{multirow}
 \RequirePackage{pdfpages}
+\RequirePackage{pgf}
 \RequirePackage[list=true,listformat=simple]{subcaption}
 \RequirePackage{tabularx}
 \RequirePackage{tagging}
@@ -73,8 +79,9 @@
 	\RequirePackage{titletoc}
 	\RequirePackage{titlesec}
 \fi
-\RequirePackage{todonotes}
+\RequirePackage[colorinlistoftodos,prependcaption,obeyFinal]{todonotes}
 \RequirePackage{xcolor}
+\RequirePackage{xpatch}
 \RequirePackage{wasysym}
 \RequirePackage{wrapfig}
 \ifMATLABCode
@@ -102,7 +109,7 @@
 	\DeclareRobustCommand{\citet}[2][]{\textcite[#1]{#2}}
 	\AtBeginDocument{\urlstyle{same}}
 \fi
-\RequirePackage{cleveref}
+\RequirePackage[noabbrev,nameinlink]{cleveref}
 \RequirePackage{datetime}
 \RequirePackage{subfiles}		% for including other tex files (with \docuementclass[main.tex]{subfiles} and no further preamble) (use \subfile)
 \RequirePackage{standalone}	% for including other tex files (imports the preamble of the child document) (use\include or \input)
@@ -186,10 +193,13 @@
 \pgfmathsetseed{\pdfuniformdeviate 10000000}
 
 %% New commands
-\newcommand{\dd}[3][]{\ensuremath{\frac{\mathrm{d}^{#1} {#2}}{\mathrm{d} {#3}^{#1}}}}
+\def\d{\ensuremath{\mathrm{d}}}
+\newcommand{\dd}[3][]{\ensuremath{\frac{\d^{#1} {#2}}{\d {#3}^{#1}}}}
 \newcommand{\pd}[3][]{\ensuremath{\frac{\partial^{#1} {#2}}{\partial {#3}^{#1}}}}
 \newcommand{\unit}[1]{\ensuremath{\,\mathup{#1}}}
 \newcommand*\rfrac[2]{{}^{#1}\!/_{#2}}
+\newcommand{\sub}[1]{\ensuremath{_{\rm{#1}}}}
+\newcommand{\E}[1]{\ensuremath{\times 10^{#1}}}
 \renewcommand{\emph}[1]{\textit{\textbf{\textcolor{red}{#1}}}}
 \ifLuaOrXe \else
 	\DeclareMathAlphabet{\mathup}{OT1}{\familydefault}{m}{n}
@@ -246,7 +256,12 @@
 		\end{abstract}
 	}
 }	
-\newcommand{\sub}[1]{\ensuremath{_{\rm{#1}}}}
+
+\ifInlineTodonotes
+	\makeatletter
+	\xpatchcmd{\@todo}{\setkeys{todonotes}{#1}}{\setkeys{todonotes}{inline,#1}}{}{}
+	\makeatother
+\fi
 
 \newcommand\invisiblesection[1]{%
 	\refstepcounter{section}%
