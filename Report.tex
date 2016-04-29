@@ -125,16 +125,50 @@ As the first term vanishes as it is divided by $ t\sub{obs} $, which goes to $ \
 	\end{align}
 \end{subequations}
 
-As according to the equipartition theorem $ 3 k\sub{B} T = m \left\langle \vec{v}^{\;2} \right\rangle = m \left\langle \dot{\vec{r}}^{\;2} \right\rangle $, the virial is given by $ \langle G \rangle = -3 n k\sub{B} T $.
+As according to the equipartition theorem $ 3 k\sub{B} T = m \left\langle \vec{v}^{\;2} \right\rangle = m \left\langle \dot{\vec{r}}^{\;2} \right\rangle $, the virial is given by $ \langle G \rangle = -3 n k\sub{B} T $.\\
 
-\todo[inline]{Exercise 5 afmaken}
+Moreover, the sum $ \sum_i \vec{r} \cdot \vec{F}_i\suprm{ext} $ can be calculated using $ \d \vec{F}_i\suprm{ext} = - P \d \vec{A})_i $:
+\begin{subequations}
+	\begin{align}
+		\sum_i \vec{r} \cdot \vec{F}_i\suprm{ext} =& \sum_i \int \vec{r} \cdot \vec{F}_i\suprm{ext}\\
+		=& \sum_i \int_{A_i} P \vec{r} \cdot \d\vec{A}_i.
+	\end{align}
+\end{subequations}
+
+Using the Gauss theorem and the fact that $ \nabla \vec{r} = 3 $ this can be further calculated as
+\begin{subequations}
+	\begin{align}
+		\sum_i \int_{A_i} P \vec{r} \cdot \d\vec{A}_i =& -P \sum_i \int_{V_i} \nabla \cdot \vec{r}_i \d V_i\\
+		=& -3 P \sum_i V_i\\
+		=& -3 P V.
+	\end{align}
+\end{subequations}
+
+This results can be combined with $ \langle G \rangle = -3 n k\sub{B} T $ using $ \vec{F} = \vec{F}\suprm{int} + \vec{F}\suprm{ext} $:
+
+\begin{subequations}
+	\begin{align}
+		-3 V P = \sum_i \vec{r} \cdot \vec{F}_i\suprm{ext} =& \left\langle \sum_i \vec{r}_i \cdot \vec{F}_i \right\rangle - \left\langle \sum_i \vec{r}_i \cdot \vec{F}_i\suprm{int} \right\rangle\\
+		=& \langle G \rangle - \left\langle \sum_i \vec{r}_i \cdot \vec{F}_i\suprm{int} \right\rangle\\
+		=& -3 N K\sub{B} T - \left\langle \sum_i \vec{r}_i \cdot \vec{F}_i\suprm{int} \right\rangle.
+	\end{align}
+\end{subequations}
+
+This yields
+\begin{equation}
+P = \frac{1}{V} \left( N k\sub{B} T + \frac{1}{3} \left\langle \sum_i \vec{r}_i \cdot \vec{F}_i\suprm{int} \right\rangle \right).
+\end{equation}
 
 \section{Exercise 6}
 \subsection{Exercise 6a}
-\todo[inline]{Exercise 6a maken}
+The magnitude of the barrier separating trans and gauche isomeric states for polyethylene is $ 14 \unit{kJ / mol} $, which is equal to $ 5.65 k\sub{B} T $.
 
 \subsection{Exercise 6b}
-\todo[inline]{Exercise 6b maken}
+The Lennard-Jones time is defined as $ \tau\sub{LJ} = a\sqrt{\frac{m}{\varepsilon}} $.
+For the specified model, $ a = 1 \AA $ is the size of the particle, $ m = 12 a.u. = 1.992 \E{-28} \unit{kg} $ is the mass and $ \varepsilon = 0.5 \unit{kJ / moll} = 8.3 \E{-20} \unit{J} $ is the interaction energy, so the Lennard-Jones time is given by $ \tau\sub{LJ} \approx 10^{-10} \sqrt{\frac{1.992 \E{-28}}{8.3 \E{-20}}} \approx 0.5 \unit{ps} $.
+The rotational diffusion time is defined as $ \tau\sub{diff} = \frac{8 \pi \eta (l/2)^3}{k\sub{B} T} $.
+With viscosity $ \eta = 1 \unit{mPa \, s} $ and temperature $ T = 300 \unit{K} $ and length $ l = 1 \AA $, this gives $ \tau\sub{diff} = \frac{8 \pi \E{-3} \E{-30}}{4.11\E{-21}} \approx 6\unit{ps} $.
+An appropriate time-step would be $ \Delta t = \tau\sub{LJ} / 100 = 5 \E{-3} \unit{ps} $, as the Lennard-Jones time is the shortest time-scale. 
 
 \section{Exercise 7}
 The kinetic energy $ E\sub{k} $ and it's time derivative are given by
@@ -179,7 +213,7 @@ The asymptote for $ r \rightarrow 0 $ is $ U(r \rightarrow 0) \rightarrow \infty
 
 \begin{figure}[h!]
 	\centering
-	\input{Figures/MDSLEX2b.tex}
+	\input{Figures/MDSLEX2b.pgf}
 	\caption{Lennard-Jones potential.}
 	\label{fig:MDSLEX2b}
 \end{figure}
