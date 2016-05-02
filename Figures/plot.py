@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib as mpl
+from mpl_toolkits.mplot3d import Axes3D
 import pandas as pd
 
 # defining standard plotting functions
@@ -53,14 +54,14 @@ mpl.rcParams.update(pgf_with_latex)
 import matplotlib.pyplot as plt
 
 # MDSLEX2b
-fig, ax = newfig(0.7,0.6)
+plt.figure(figsize=figsize(0.7, 0.6))
 
 x = np.arange(0.001, 3, 0.01)
 y = 4*((x**-12) - (x**-6))
 
-ax.plot(x, y)
-ax.set_xlabel('$r/\sigma$')
-ax.set_ylabel('$ U_\mathrm{LJ}/\\varepsilon$')
+plt.plot(x, y)
+plt.gca().set_xlabel('$r/\sigma$')
+plt.gca().set_ylabel('$ U_\mathrm{LJ}/\\varepsilon$')
 
 plt.gcf().subplots_adjust(bottom=0.15)
 
@@ -70,12 +71,33 @@ plt.ylim(-1.5, 5)
 savefig('MDSLEX2b')
 
 # MDSLP1
-
-fig, ax = newfig(1)
-
 data = pd.read_csv("MDSLP1", header=None, delim_whitespace=True)
-ax.plot(data[1],data[2])
-ax.plot(data[1],data[3])
-ax.plot(data[1],data[4])
+
+plt.clf()
+plt.figure(figsize=figsize(1,0.5))
+
+ax = plt.subplot(121, projection='3d')
+ax.plot(data[4], data[5], data[6])
+ax.plot(data[7], data[8], data[9])
+ax.view_init(20, 30)
+ax.set_xlabel('$x$')
+ax.set_ylabel('$y$')
+ax.set_zlabel('$z$')
+ax.tick_params(axis='z', pad=100)
+ax.xaxis.set_ticks(np.arange(0, 1.1, 0.5))
+ax.yaxis.set_ticks(np.arange(-0.5, 0.6, 0.5))
+ax.zaxis.set_ticks(np.arange(-0.1, 0.11, 0.1))
+plt.tight_layout()
+
+plt.subplot(122)
+plt.plot(data[0],data[1], label='Kinetic energy')
+plt.plot(data[0],data[2], label='Potential energy')
+plt.plot(data[0],data[3], label='Total energy')
+plt.gca().set_xlabel('Time $t$')
+plt.gca().set_ylabel('Energy')
+plt.ylim(-1.05,0.8)
+plt.xlim(0,10)
+plt.legend(bbox_to_anchor=(1, 0.8), frameon=False)
+plt.tight_layout()
 
 savefig('MDSLP1')
