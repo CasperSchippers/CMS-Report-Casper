@@ -15,7 +15,7 @@ def figsize(scalewidth, ratio = None):
 	return fig_size
 
 def plot():
-	fig = plt.figure(figsize=figsize(1,0.5)
+	fig = plt.figure(figsize=figsize(1,0.5))
 
 	x = np.arange(0.001, 3, 0.01)
 	y = 4*((x**-12) - (x**-6))

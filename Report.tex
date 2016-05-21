@@ -358,7 +358,7 @@ In the implementation, first for every particle the new position and the mid-ste
 After these calculations, the acceleration for every particle is calculated (this is done by the function \lstinline[basicstyle=\ttfamily]|accelerations|).
 With these new accelerations, the final velocity is calculated.
 
-\begin{lstlisting}[language = C, basicstyle=\ttfamily\small,  caption = {Implementation of the velocity Verlet scheme}, label = {lst:velocityVerlet}]
+\begin{lstlisting}[language = C,  caption = {Implementation of the velocity Verlet scheme}, label = {lst:velocityVerlet}]
 void time_step_verlet( int iprint )
 {
 	int i, j;
@@ -390,8 +390,8 @@ void time_step_verlet( int iprint )
 
 \section{Problem 5}
 The trajectories and energies of the systems with $ N = 2 $ and $ N = 3 $ particles, simulated using the velocity Verlet scheme, are shown in \cref{fig:MDSLP5N2,fig:MDSLP5N3}.
-The trajectories for the $ N = 3 $ particle system differ slightly from the earlier simulation, which used the ordinary Verlet scheme, which is shown in \cref{fig:MDSLP2}.
-Moreover, the total energy of the $ N = 3 $ particles system as calculated using the velocity Verlet scheme shows less fluctuations compared to the total energy as calculated using the ordinary Verlet scheme, which indicates that the velocity Verlet scheme is more accurate than the regular Verlet scheme.
+The trajectories for the $ N = 3 $ particle system differ slightly from the earlier simulation, which used the regular Verlet scheme, as shown in \cref{fig:MDSLP2}.
+Moreover, the total energy of the $ N = 3 $ particles system as calculated using the velocity Verlet scheme shows less fluctuations compared to the total energy as calculated using the regular Verlet scheme, which indicates that the velocity Verlet scheme is more accurate than the regular Verlet scheme.
 
 \begin{figure}[h!]
 	\centering
@@ -408,29 +408,66 @@ Moreover, the total energy of the $ N = 3 $ particles system as calculated using
 \end{figure}
 
 \section{Problem 6}
-\todo{Problem 6 maken}
+The averages of the kinetic, potential and total energies for both the regular and the velocity Verlet scheme for $ N = 3 $ particles are shown in \cref{tab:avgEnergiesN3}.
+The averages are calculated of the second half of the simulation.
+As one can see, the averages of the regular Verlet scheme and the velocity Verlet scheme are consistent with each other, indicating that they are mostly independent of the exact details of the result.
+The difference in the standard deviation of the total energy between the regular and the velocity Verlet scheme shows that the velocity Verlet scheme is more accurate than the regular Verlet scheme.
+
+\begin{table}[h!]
+	\centering
+	\caption{Averages of the kinetic, potential and total energies for the regular and the velocity Verlet scheme for $ N = 3 $ particles.}
+	\label{tab:avgEnergiesN3}
+	\begin{tabular}{rrrr}
+		& \bfseries Kinetic energy & \bfseries Potential energy & \bfseries Total energy \\ 
+		\bfseries Regular Verlet & $ 1.0 \pm 0.3 $ & $ -2.1 \pm 0.3 $ & $ -1.049 \pm 0.004 $ \\ 
+		\bfseries Velocity Verlet & $ 0.8 \pm 0.4 $ & $ -1.9 \pm 0.4 $ & $ -1.04900 \pm 0.00005 $
+	\end{tabular} 
+\end{table}
 
 \section{Problem 7}
-\todo{Problem 7 maken}
+The periodic boundary conditions are implemented by adding the piece of code in \cref{lst:periodicBoundary} to the \lstinline[basicstyle=\ttfamily]|time_step_verlet| function.
+The code checks whether the components of the vector pointing to a lies between $ 0 $ and $ L $, where $ L $ is the size of the box, and adds or subtracts the box size if necessary.
+
+\begin{lstlisting}[language = C,  caption = {Piece of code that is added to the \protect{\lstinline[basicstyle=\ttfamily]|time_step_verlet|} function to implement the periodic boundary conditions.}, label = {lst:periodicBoundary}]
+Rcorr[i].x = R[i].x - floor(R[i].x/boxsize)*boxsize; 
+Rcorr[i].y = R[i].y - floor(R[i].y/boxsize)*boxsize;
+Rcorr[i].z = R[i].z - floor(R[i].z/boxsize)*boxsize;
+\end{lstlisting}
+
+The minimum image convention is implemented by adding the code in \cref{lst:minimumImage} to the \lstinline[basicstyle=\ttfamily]|accelerations| function.
+The piece of code checks whether the components of the vector pointing from one particle to another lies between $ -L/2 $ and $ +L/2 $ and adds or subtracts the box size if necessary.
+
+\begin{lstlisting}[language = C,  caption = {Piece of code that is added to the \protect{\lstinline[basicstyle=\ttfamily]|accelerations|} function to implement the minimum image convention.}, label = {lst:minimumImage}]
+xij -= floor(xij/boxsize)*boxsize + boxsize*0.5;
+yij -= floor(yij/boxsize)*boxsize + boxsize*0.5;
+zij -= floor(zij/boxsize)*boxsize + boxsize*0.5;
+\end{lstlisting}
 
 \section{Problem 8}
-\begin{figure}[h!]
-	\centering
-	\pgffigure{MDSLP8N12}
-	\caption{\todo{add caption}}
-	\label{fig:MDSLP8N12}
-\end{figure}
+The trajectory of a suspicious particle is shown in \cref{fig:MDSLP8Susp}.
+As one can see, when a particle leaves the box at one side, it is placed back at the opposite side.
 
 \begin{figure}[h!]
 	\centering
-	\pgffigure{MDSLP8N24}
-	\caption{\todo{add caption}}
-	\label{fig:MDSLP8N24}
+	\pgffigure{MDSLP8Susp}
+	\caption{Trajectory of a particle (left) that is uncorrected for the periodic boundary conditions and (right) that is corrected for the periodic boundary conditions.}
+	\label{fig:MDSLP8Susp}
 \end{figure}
-
-\todo{Problem 8 maken}
 
 \section{Problem 9}
+\begin{figure}[h!]
+	\centering
+	\pgffigure{MDSLP9N12}
+	\caption{\todo{add caption}}
+	\label{fig:MDSLP9N12}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\pgffigure{MDSLP9N24}
+	\caption{\todo{add caption}}
+	\label{fig:MDSLP9N24}
+\end{figure}
 \todo{Problem 9 maken}
 
 \section{Master exercise 1}

@@ -30,12 +30,12 @@ def plot():
 	ax.view_init(20, 30)
 	ax.set_xlabel('$x$', labelpad=-6)
 	ax.set_ylabel('$y$', labelpad=-6)
-	ax.set_zlabel('$z$', labelpad=-4)
+	ax.set_zlabel('$z$', labelpad=0)
 	for label in ax.get_zmajorticklabels():
 		label.set_horizontalalignment('right')
 	ax.tick_params(axis='x', pad=-4)
 	ax.tick_params(axis='y', pad=-4)
-	ax.tick_params(axis='z', pad=3)
+	ax.tick_params(axis='z', pad=-3)
 	ax.xaxis.set_ticks(np.arange(0, 1.1, 0.5))
 	ax.yaxis.set_ticks(np.arange(-1, 1.1, 0.5))
 	ax.zaxis.set_ticks(np.arange(-0.6, 0.9, 0.2))
@@ -52,8 +52,23 @@ def plot():
 	plt.legend(bbox_to_anchor=(1, 0.7), frameon=False)	
 	plt.tight_layout()
 
+
+
 	if __name__ == '__main__':
 		plt.show()
+
+		fitdata = data[:][data[0]>=5.0]
+		kinavg = np.mean(fitdata[1])
+		kinvar = np.std(fitdata[1])
+		potavg = np.mean(fitdata[2])
+		potvar = np.std(fitdata[2])
+		totavg = np.mean(fitdata[3])
+		totvar = np.std(fitdata[3])
+
+		print("mean+std result kinetic energy :", kinavg, "+-", kinvar)
+		print("mean+std result potential energy   :", potavg, "+-", potvar)
+		print("mean+std result total energy   :", totavg, "+-", totvar)
+		
 
 	return fig
 

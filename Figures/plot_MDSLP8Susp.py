@@ -15,19 +15,19 @@ def figsize(scalewidth, ratio = None):
 	return fig_size
 
 def plot():
-	file = 'MDSLP8N12'
+	file = 'MDSLP9N12'
 	data = pd.read_csv("Data\\" + file, header=None, delim_whitespace=True)
 
 	noff = 4
 	N = round((np.shape(data)[1]-noff)/6)
+	n=1
 
 	plt.clf()
 	fig = plt.figure(figsize=figsize(1,0.5))
 
 	ax = plt.subplot(121, projection='3d')
 	ax.set_rasterization_zorder(1);
-	for n in range(N):
-		ax.plot(data[6*n+noff], data[6*n+noff+1], data[6*n+noff+2],'o', markeredgewidth=0.0, markersize=1,zorder=0)
+	ax.plot(data[6*n+noff], data[6*n+noff+1], data[6*n+noff+2],'o', markeredgewidth=0.0, markersize=1,zorder=0)
 	ax.view_init(20, 30)
 	ax.set_xlabel('$x$', labelpad=-6)
 	ax.set_ylabel('$y$', labelpad=-6)
@@ -37,20 +37,26 @@ def plot():
 	ax.tick_params(axis='x', pad=-4)
 	ax.tick_params(axis='y', pad=-4)
 	ax.tick_params(axis='z', pad=-3)
-	ax.xaxis.set_ticks(np.arange(-4, 5, 2))
-	ax.yaxis.set_ticks(np.arange(-4, 5, 2))
-	ax.zaxis.set_ticks(np.arange(-8, 9, 2))
-	plt.tight_layout()
+	ax.xaxis.set_ticks(np.arange( 0, 2.1, 1))
+	ax.yaxis.set_ticks(np.arange(-2, 0.6, 1))
+	ax.zaxis.set_ticks(np.arange(-2, 4.1, 1))
 
-	plt.subplot(122)
-	plt.plot(data[0],data[1], label='Kinetic energy')
-	plt.plot(data[0],data[2], label='Potential energy')
-	plt.plot(data[0],data[3], label='Total energy')
-	plt.gca().set_xlabel('Time $t$')
-	plt.gca().set_ylabel('Energy')
-	plt.xlim(0,10)
-	plt.legend(bbox_to_anchor=(1, 0.7), frameon=False)	
-	plt.tight_layout()
+	ax = plt.subplot(122, projection='3d')
+	ax.set_rasterization_zorder(1);
+	ax.plot(data[6*n+noff+3], data[6*n+noff+4], data[6*n+noff+5],'o', markeredgewidth=0.0, markersize=1,zorder=0)
+	ax.view_init(20, 30)
+	ax.set_xlabel('$x$', labelpad=-6)
+	ax.set_ylabel('$y$', labelpad=-6)
+	ax.set_zlabel('$z$', labelpad=-4)
+	for label in ax.get_zmajorticklabels():
+		label.set_horizontalalignment('right')
+	ax.tick_params(axis='x', pad=-4)
+	ax.tick_params(axis='y', pad=-4)
+	ax.tick_params(axis='z', pad=-3)
+	ax.xaxis.set_ticks(np.arange(0, 4.1, 1))
+	ax.yaxis.set_ticks(np.arange(0, 4.1, 1))
+	ax.zaxis.set_ticks(np.arange(0, 4.1, 1))
+
 
 	if __name__ == '__main__':
 		plt.show()

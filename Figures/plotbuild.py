@@ -20,7 +20,7 @@ def worker(q, tq, lock):
         fig = module.plot()
 
 
-        fig.savefig('%s.pgf' % figurename, dpi = 2000)
+        fig.savefig('%s.pgf' % figurename, dpi = 500)
         # fig.savefig('%s.pdf' % figurename, dpi = 2000)
 
         tq.put(figurename)
@@ -115,8 +115,9 @@ if __name__ == '__main__':
     queue.put("MDSLP3N6")
     queue.put("MDSLP5N2")
     queue.put("MDSLP5N3")
-    queue.put("MDSLP8N12")
-    queue.put("MDSLP8N24")
+    queue.put("MDSLP8Susp")
+    queue.put("MDSLP9N12")
+    queue.put("MDSLP9N24")
     queue.put("ArgonAnnealedDensTemp")
     queue.put("ArgonColdDensTemp")
     queue.put("ArgonMSD")
