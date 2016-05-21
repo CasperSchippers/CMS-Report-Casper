@@ -23,6 +23,7 @@
 *.out
 *.synctex.gz
 *.tdo
+*.fmt
 *.pdf
 *.run.xml
 *.bcf

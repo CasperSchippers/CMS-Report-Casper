@@ -1,0 +1,1 @@
+pdflatex -ini -jobname="Prebuild" "&pdflatex" mylatexformat.ltx Report.tex

@@ -1,0 +1,69 @@
+# This file was created Wed May 11 16:39:24 2016
+# Created by:
+# GROMACS:      gmx msd, VERSION 5.0.5
+# Executable:   /home/comp-physics/Softwares/gromacs/bin/gmx
+# Library dir:  /home/comp-physics/Softwares/gromacs/share/gromacs/top
+# Command line:
+#   g_msd -f CHCl3-sol-298K-npt-heat-T508.trr -s CHCl3-sol-298K-npt-heat-T508.tpr -o CHCl3-sol-298K-npt-heat-T508-msd-7-8.xvg -b 7000 -e 8000
+# g_msd is part of G R O M A C S:
+#
+# Giant Rising Ordinary Mutants for A Clerical Setup
+#
+@    title "Mean Square Displacement"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "MSD (nm\S2\N)"
+@TYPE xy
+# MSD gathered over 1000 ps with 51 restarts
+# Diffusion constants fitted from time 100 to 900 ps
+# D[       CFM] = 455.2819 (+/- 43.8861) (1e-5 cm^2/s)
+         0           0
+        20     23.6483
+        40      63.676
+        60     108.254
+        80     154.427
+       100     201.376
+       120     248.981
+       140     296.997
+       160     345.481
+       180     394.456
+       200     443.867
+       220     493.802
+       240     544.394
+       260     595.791
+       280      647.66
+       300      700.14
+       320     753.067
+       340     806.136
+       360     859.197
+       380     912.263
+       400      965.63
+       420     1019.29
+       440     1072.65
+       460     1126.16
+       480      1180.4
+       500     1235.59
+       520     1291.24
+       540      1347.1
+       560      1402.9
+       580     1459.02
+       600     1515.01
+       620     1570.84
+       640     1626.79
+       660     1683.32
+       680      1739.9
+       700     1797.16
+       720     1854.08
+       740     1911.54
+       760     1968.29
+       780     2026.63
+       800     2085.03
+       820     2144.53
+       840     2203.01
+       860     2261.12
+       880     2318.07
+       900     2374.46
+       920     2430.27
+       940      2485.2
+       960      2539.7
+       980     2593.83
+      1000     2643.78

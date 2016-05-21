@@ -1,0 +1,44 @@
+# This file was created Wed May 11 09:00:06 2016
+# Created by:
+# GROMACS:      gmx msd, VERSION 5.0.5
+# Executable:   /home/comp-physics/Softwares/gromacs/bin/gmx
+# Library dir:  /home/comp-physics/Softwares/gromacs/share/gromacs/top
+# Command line:
+#   g_msd -f argon_start_1000_85K_npt-heat.trr -s argon_start_1000_85K_npt-heat.tpr -o argon_start_1000_85K_npt-heat.xvg -b 6000 -e 80000
+# g_msd is part of G R O M A C S:
+#
+# Guyana Rwanda Oman Macau Angola Cameroon Senegal
+#
+@    title "Mean Square Displacement"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "MSD (nm\S2\N)"
+@TYPE xy
+# MSD gathered over 2000 ps with 26 restarts
+# Diffusion constants fitted from time 240 to 1840 ps
+# D[        Ar] = 33.4916 (+/- 0.5375) (1e-5 cm^2/s)
+         0           0
+        80     15.7315
+       160     31.5246
+       240     47.2512
+       320     63.0748
+       400     78.7171
+       480     94.3395
+       560     110.094
+       640      126.09
+       720     142.008
+       800     157.964
+       880      173.96
+       960     190.064
+      1040     206.254
+      1120     222.441
+      1200     238.719
+      1280     255.093
+      1360      270.96
+      1440     286.537
+      1520     302.906
+      1600      319.24
+      1680     335.432
+      1760     351.451
+      1840      369.94
+      1920     386.522
+      2000     401.902

@@ -1,10 +1,55 @@
+%&Prebuild
 \documentclass[titlepage]{report}
 \usepackage[BibLaTeX,noParIndent,InlineTodonotes]{multipack}
 
+
+
 \title{Computational Materials Science - Molecular Dynamics}
 \author{Schippers, C.F.}
-\date{\today}
 
+\newcommand\inputpgf[2]{{
+		\let\pgfimageWithoutPath\pgfimage 
+		\renewcommand{\pgfimage}[2][]{\pgfimageWithoutPath[##1]{#1/##2}}
+		\input{#1/#2}
+	}}
+	
+	\newcommand\pgffigure[1]{{
+			\beginpgfgraphicnamed{PGFFigures/#1}
+			\inputpgf{Figures}{#1.pgf}
+			\endpgfgraphicnamed
+		}}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize\ttfamily,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=t,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\csname endofdump\endcsname
+
+%\syntaxonly
+\date{\today}
+\pgfrealjobname{Report}
 
 \begin{document}
 \setAbstract{}
@@ -69,7 +114,7 @@ At distances away from the equilibrium the Morse potential deviates from the har
 The Morse potential and the Taylor expansion around $ l - l_0 = 0 $ are shown in \cref{fig:THEX2b}.
 \begin{figure}[h!]
 	\centering
-	\input{Figures/THEX2b.tex}
+	\pgffigure{THEX2b}
 	\caption{Plot of the Morse potential and the Taylor expansion of the Morse potential around $ l-l_0 = 0 $.}
 	\label{fig:THEX2b}
 \end{figure}
@@ -81,7 +126,7 @@ The characteristic frequency $ \omega $ of a harmonic spring with two masses is 
 \end{equation}
 with $ k\sub{spring} $ the spring constant and $ \mu = \left(\frac{1}{m_1} + \frac{1}{m_2}\right)^{-1} $ the reduced mass. 
 From this frequency, the wave-number $ k $ can be calculated with $ \omega = c k $, where $ c = 3\E{8}\unit{m \, s^{-1}} $ is the speed of light. This results in the values found in \cref{tab:THEX3wavenumbers}.
-% Using $ 1\unit{N/m} = 1.4393 \unit{kcal \, mol^{-1} \textrm{\AA}^{-2}} $ and..
+To convert the units to SI units, the conversion factor $ 1\unit{N/m} = 1.4393 \unit{kcal \, mol^{-1} \textrm{\AA}^{-2}} $ is used.
 \begin{table}[h!]
 	\centering
 	\caption{Wave-numbers in $ \unit{cm^{-1}} $ for various bonds.}
@@ -165,7 +210,7 @@ The magnitude of the barrier separating trans and gauche isomeric states for pol
 
 \subsection{Exercise 6b}
 The Lennard-Jones time is defined as $ \tau\sub{LJ} = a\sqrt{\frac{m}{\varepsilon}} $.
-For the specified model, $ a = 1 \AA $ is the size of the particle, $ m = 12 a.u. = 1.992 \E{-28} \unit{kg} $ is the mass and $ \varepsilon = 0.5 \unit{kJ / moll} = 8.3 \E{-20} \unit{J} $ is the interaction energy, so the Lennard-Jones time is given by $ \tau\sub{LJ} \approx 10^{-10} \sqrt{\frac{1.992 \E{-28}}{8.3 \E{-20}}} \approx 0.5 \unit{ps} $.
+For the specified model, $ a = 1 \textrm{\AA} $ is the size of the particle, $ m = 12 a.u. = 1.992 \E{-28} \unit{kg} $ is the mass and $ \varepsilon = 0.5 \unit{kJ / moll} = 8.3 \E{-20} \unit{J} $ is the interaction energy, so the Lennard-Jones time is given by $ \tau\sub{LJ} \approx 10^{-10} \sqrt{\frac{1.992 \E{-28}}{8.3 \E{-20}}} \approx 0.5 \unit{ps} $.
 The rotational diffusion time is defined as $ \tau\sub{diff} = \frac{8 \pi \eta (l/2)^3}{k\sub{B} T} $.
 With viscosity $ \eta = 1 \unit{mPa \, s} $ and temperature $ T = 300 \unit{K} $ and length $ l = 1 \AA $, this gives $ \tau\sub{diff} = \frac{8 \pi \E{-3} \E{-30}}{4.11\E{-21}} \approx 6\unit{ps} $.
 An appropriate time-step would be $ \Delta t = \tau\sub{LJ} / 100 = 5 \E{-3} \unit{ps} $, as the Lennard-Jones time is the shortest time-scale. 
@@ -213,7 +258,7 @@ The asymptote for $ r \rightarrow 0 $ is $ U(r \rightarrow 0) \rightarrow \infty
 
 \begin{figure}[h!]
 	\centering
-	\input{Figures/MDSLEX2b.pgf}
+	\pgffigure{MDSLEX2b}
 	\caption{Lennard-Jones potential.}
 	\label{fig:MDSLEX2b}
 \end{figure}
@@ -268,9 +313,8 @@ This could be done by using a modulus function or by using a floor function.
 The trajectories and the energy plots of a system with $ N = 2 $ particles is shown in \cref{fig:MDSLP1}.
 \begin{figure}[h!]
 	\centering
-	\input{Figures/MDSLP1.pgf}
-	\caption{Trajectories (left) and plot of the kinetic, potential and total energy (right) for a system with $ N = 2 $ particles.
-		\todo{replace gnuplot by python and add background grid to 3D plot}}
+	\pgffigure{MDSLP1}
+	\caption{Trajectories (left) and plot of the kinetic, potential and total energy (right) for a system with $ N = 2 $ particles.}
 	\label{fig:MDSLP1}
 \end{figure}
 
@@ -278,40 +322,90 @@ The trajectories and the energy plots of a system with $ N = 2 $ particles is sh
 The trajectories and energy plots of a system with $ N = 3 $ particles is shown in \cref{fig:MDSLP2}.
 \begin{figure}[h!]
 	\centering
-	\input{Figures/MDSLP2.tex}
+	\pgffigure{MDSLP2}
 	\caption{Trajectories (left) and plot of the kinetic, potential and total energy (right) for a system with $ N = 3 $ particles.}
 	\label{fig:MDSLP2}
 \end{figure}
 
 \section{Problem 3}
-The trajectories and energy plots of systems with $ N = 4 $, $ N = 5 $ and $ N = 6 $ are shown in \cref{fig:MDSLP3N4,fig:MDSLP3N5,fig:MDSLP3N6}.
+The trajectories and energy plots of systems with $ N = 4 $, $ N = 5 $ and $ N = 6 $ are shown in \cref{fig:MDSLP3N4,fig:MDSLP3N5,fig:MDSLP3N6}, respectively.
 
 \begin{figure}[h!]
 	\centering
-	\input{Figures/MDSLP3N4.tex}
+	\pgffigure{MDSLP3N4}
 	\caption{Trajectories (left) and plot of the kinetic, potential and total energy (right) for a system with $ N = 4 $ particles.}
 	\label{fig:MDSLP3N4}
 \end{figure}
 
 \begin{figure}[h!]
 	\centering
-	\input{Figures/MDSLP3N5.tex}
+	\pgffigure{MDSLP3N5}
 	\caption{Trajectories (left) and plot of the kinetic, potential and total energy (right) for a system with $ N = 5 $ particles.}
 	\label{fig:MDSLP3N5}
 \end{figure}
 
 \begin{figure}[h!]
 	\centering
-	\input{Figures/MDSLP3N6.tex}
+	\pgffigure{MDSLP3N6}
 	\caption{Trajectories (left) and plot of the kinetic, potential and total energy (right) for a system with $ N = 6 $ particles.}
 	\label{fig:MDSLP3N6}
 \end{figure}
 
 \section{Problem 4}
-\todo{Problem 4 maken}
+In order to implement the velocity Verlet scheme, the function \lstinline[basicstyle=\ttfamily]|time_step_verlet| is replaced. 
+The new version of this function is shown in \cref{lst:velocityVerlet}. 
+In the implementation, first for every particle the new position and the mid-step velocity are calculated.
+After these calculations, the acceleration for every particle is calculated (this is done by the function \lstinline[basicstyle=\ttfamily]|accelerations|).
+With these new accelerations, the final velocity is calculated.
+
+\begin{lstlisting}[language = C, basicstyle=\ttfamily\small,  caption = {Implementation of the velocity Verlet scheme}, label = {lst:velocityVerlet}]
+void time_step_verlet( int iprint )
+{
+	int i, j;
+
+	for ( i = 0 ; i<Npart ; i++ )
+	{
+		// Calculate the new position for every particle
+		R[i].x += dt*V[i].vx + dt*dt*acc[i].ax*0.5;
+		R[i].y += dt*V[i].vy + dt*dt*acc[i].ay*0.5;
+		R[i].z += dt*V[i].vz + dt*dt*acc[i].az*0.5;
+		
+		// Calculate the mid-step velocity for every particle
+		V[i].vx += dt*acc[i].ax*0.5;
+		V[i].vy += dt*acc[i].ay*0.5;
+		V[i].vz += dt*acc[i].az*0.5;
+	}
+	
+	// Calculate accelerations at timestep "t+dt"
+	accelerations( iprint );  
+	
+	for ( i = 0 ; i<Npart ; i++ )
+	{
+		V[i].vx += dt*acc[i].ax*0.5;
+		V[i].vy += dt*acc[i].ay*0.5;
+		V[i].vz += dt*acc[i].az*0.5;
+	}
+}
+\end{lstlisting}
 
 \section{Problem 5}
-\todo{Problem 5 maken}
+The trajectories and energies of the systems with $ N = 2 $ and $ N = 3 $ particles, simulated using the velocity Verlet scheme, are shown in \cref{fig:MDSLP5N2,fig:MDSLP5N3}.
+The trajectories for the $ N = 3 $ particle system differ slightly from the earlier simulation, which used the ordinary Verlet scheme, which is shown in \cref{fig:MDSLP2}.
+Moreover, the total energy of the $ N = 3 $ particles system as calculated using the velocity Verlet scheme shows less fluctuations compared to the total energy as calculated using the ordinary Verlet scheme, which indicates that the velocity Verlet scheme is more accurate than the regular Verlet scheme.
+
+\begin{figure}[h!]
+	\centering
+	\pgffigure{MDSLP5N2}
+	\caption{Trajectories (left) and plot of the kinetic, potential and total energy (right) for a system with $ N = 2 $ particles calculated using the velocity Verlet scheme.}
+	\label{fig:MDSLP5N2}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\pgffigure{MDSLP5N3}
+	\caption{Trajectories (left) and plot of the kinetic, potential and total energy (right) for a system with $ N = 3 $ particles calculated using the velocity Verlet scheme.}
+	\label{fig:MDSLP5N3}
+\end{figure}
 
 \section{Problem 6}
 \todo{Problem 6 maken}
@@ -320,13 +414,91 @@ The trajectories and energy plots of systems with $ N = 4 $, $ N = 5 $ and $ N =
 \todo{Problem 7 maken}
 
 \section{Problem 8}
+\begin{figure}[h!]
+	\centering
+	\pgffigure{MDSLP8N12}
+	\caption{\todo{add caption}}
+	\label{fig:MDSLP8N12}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\pgffigure{MDSLP8N24}
+	\caption{\todo{add caption}}
+	\label{fig:MDSLP8N24}
+\end{figure}
+
 \todo{Problem 8 maken}
 
 \section{Problem 9}
 \todo{Problem 9 maken}
 
-\section{Master exercise}
+\section{Master exercise 1}
 \todo[inline]{choose 1 of the master exercises}
+\todo[inline]{exercise met kracht uitrekenen vector van maken en getal narekenen}
+
+
+\chapter{Gromacs}
+\section{Argon}
+\begin{figure}[h!]
+	\centering
+	\pgffigure{ArgonColdDensTemp}
+	\caption{\todo{add caption}}
+	\label{fig:ArgonColdAnnealedDensTemp}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\pgffigure{ArgonAnnealedDensTemp}
+	\caption{\todo{add caption}}
+	\label{fig:ArgonAnnealedDensTemp}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\pgffigure{ArgonMSD}
+	\caption{\todo{add caption}}
+	\label{fig:ArgonMSD}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\pgffigure{ArgonRDF}
+	\caption{\todo{add caption}}
+	\label{fig:ArgonRDF}
+\end{figure}
+
+\section{Chloroform}
+
+\begin{figure}[h!]
+	\centering
+	\pgffigure{CFMColdDensTemp}
+	\caption{\todo{add caption}}
+	\label{fig:CFMColdAnnealedDensTemp}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\pgffigure{CFMAnnealedDensTemp}
+	\caption{\todo{add caption}}
+	\label{fig:CFMAnnealedDensTemp}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\pgffigure{CFMMSD}
+	\caption{\todo{add caption}}
+	\label{fig:CFMMSD}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\pgffigure{CFMRDF}
+	\caption{\todo{add caption}}
+	\label{fig:CFMRDF}
+\end{figure}
+
+
 
 \insertbibliography
 %\begin{appendices}
